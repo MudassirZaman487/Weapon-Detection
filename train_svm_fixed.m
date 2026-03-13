@@ -1,0 +1,16 @@
+function svm_model = train_svm_fixed(X_train, y_train)
+    % Train SVM with fixed parameters for reproducibility
+    
+    % Set random seed again for SVM internal randomness
+    rng(21);
+    
+    % Train SVM with RBF kernel and FIXED parameters (same as Legendre)
+    svm_model = fitcsvm(X_train, y_train, ...
+        'KernelFunction', 'rbf', ...
+        'Standardize', true, ...
+        'BoxConstraint', 100, ...
+        'KernelScale', 'auto', ...
+        'Solver', 'SMO', ...         % Use SMO solver for consistency
+        'CacheSize', 'maximal', ...  % Use maximum cache
+        'NumPrint', 100);            % Print progress
+end
